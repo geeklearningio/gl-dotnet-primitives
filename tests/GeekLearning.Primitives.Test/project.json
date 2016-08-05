@@ -1,0 +1,35 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+  },
+
+  "testRunner": "xunit",
+
+  "dependencies": {
+
+    "Microsoft.NETCore.Platforms": "1.0.1",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "xunit": "2.2.0-beta2-build3300",
+    "xunit.runner.visualstudio": "2.2.0-beta2-build1149",
+
+    "GeekLearning.Primitives": "*"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50",
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    },
+    "net452": {
+      "frameworkAssemblies": {
+      },
+      "dependencies": {
+      }
+    }
+  }
+}
