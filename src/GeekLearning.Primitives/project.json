@@ -1,16 +1,19 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "0.0.1-*",
+  "description": "Data primitives and extensions for .NET Core.",
+  "authors": [ "Geek Learning", "Cyprien Autexier", "Adrien Siffermann" ],
+  "packOptions": {
+    "tags": [],
+    "projectUrl": "",
+    "licenseUrl": ""
+  },
 
   "dependencies": {
     "NETStandard.Library": "1.6.0"
   },
 
   "frameworks": {
-    "netstandard1.6": {
-      "imports": "dnxcore50"
-    },
-    "net452": {
-
-    }
+    "net452": {},
+    "netstandard1.3": {}
   }
 }
