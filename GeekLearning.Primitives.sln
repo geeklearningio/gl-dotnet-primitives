@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GeekLearning.Primitives", "src\GeekLearning.Primitives\GeekLearning.Primitives.xproj", "{B7E721CC-9AE9-44FC-BA2D-917E9832D34E}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "GeekLearning.Primitives.Test", "tests\GeekLearning.Primitives.Test\GeekLearning.Primitives.Test.xproj", "{2C9B7859-2324-41FE-9BCE-A0768EC8458A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{620360EA-DFF5-4DB1-BD34-07B410C3D539}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AAF5DD4C-51B9-43D6-BA12-D6F405C994E6}"
@@ -16,10 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		GitVersion.yml = GitVersion.yml
-		global.json = global.json
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekLearning.Primitives", "src\GeekLearning.Primitives\GeekLearning.Primitives.csproj", "{B7E721CC-9AE9-44FC-BA2D-917E9832D34E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeekLearning.Primitives.Test", "tests\GeekLearning.Primitives.Test\GeekLearning.Primitives.Test.csproj", "{2C9B7859-2324-41FE-9BCE-A0768EC8458A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +41,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B7E721CC-9AE9-44FC-BA2D-917E9832D34E} = {AAF5DD4C-51B9-43D6-BA12-D6F405C994E6}
 		{2C9B7859-2324-41FE-9BCE-A0768EC8458A} = {620360EA-DFF5-4DB1-BD34-07B410C3D539}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA3179E9-DE36-4AB9-B7B2-C3D0A1903620}
 	EndGlobalSection
 EndGlobal

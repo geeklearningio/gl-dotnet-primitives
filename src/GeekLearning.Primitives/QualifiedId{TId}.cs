@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class QualifiedId<TId> : IQualifiedId
+    public class QualifiedId<TId> : IQualifiedId<TId>
     {
         private string idAsString;
         private string full;
@@ -32,6 +32,10 @@
 
         protected virtual TId ParseIdFromString(string str)
         {
+            if (typeof(TId) == typeof(Guid))
+            {
+                return (TId)Convert.ChangeType(Guid.Parse(str), typeof(TId));
+            }
             return (TId)Convert.ChangeType(str, typeof(TId));
         }
 
@@ -64,6 +68,5 @@
         {
             return new QualifiedId<TId>(qualifiedId);
         }
-       
     }
 }

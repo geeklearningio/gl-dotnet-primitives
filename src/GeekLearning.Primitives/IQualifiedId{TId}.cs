@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace GeekLearning.Primitives
 {
-    public interface IQualifiedId
+    public interface IQualifiedId<TId>: IQualifiedId
     {
-        string Qualifier { get; }
-        string Full { get; }
-        string IdAsString { get; }
+        TId Id { get; }
     }
 }
