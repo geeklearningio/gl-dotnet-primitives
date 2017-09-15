@@ -38,7 +38,8 @@
             var guid = Guid.Parse("D2180A07-F8DA-48E7-BB0E-855176DA58A0");
             var qualifiedId = "D2180A07-F8DA-48E7-BB0E-855176DA58A0";
 
-            Assert.Throws<ArgumentException>(()=>{
+            Assert.Throws<ArgumentException>(() =>
+            {
                 var qualifiedGuid = new QualifiedGuid("qualifiedId", qualifiedId);
             });
         }
@@ -51,6 +52,46 @@
 
             var parsedId = new QualifiedId<Guid>(qualifiedId);
             Assert.Equal(guid, parsedId.Id);
+        }
+
+        [Fact]
+        public void QualifierAddGuid()
+        {
+            Qualifier qualifier = "provider";
+            var guid = Guid.Parse("D2180A07-F8DA-48E7-BB0E-855176DA58A0");
+            var qualifiedId = qualifier + guid;
+            var qualifiedIdString = "provider:d2180a07-f8da-48e7-bb0e-855176da58a0";
+
+            Assert.Equal(qualifiedId.Full, qualifiedIdString);
+        }
+
+        [Fact]
+        public void ImplicitStringConversion()
+        {
+            Qualifier qualifier = "provider";
+            var guid = Guid.Parse("D2180A07-F8DA-48E7-BB0E-855176DA58A0");
+            var qualifiedId = qualifier + guid;
+            var qualifiedIdString = "provider:d2180a07-f8da-48e7-bb0e-855176da58a0";
+
+            Func<string, string> identity = x => x;
+
+            var result = identity(qualifiedId);
+
+            Assert.Equal(qualifiedIdString, result);
+        }
+
+        [Fact]
+        public void GuidRoundtripConversion()
+        {
+            Qualifier qualifier = "provider";
+            var guid = Guid.Parse("D2180A07-F8DA-48E7-BB0E-855176DA58A0");
+            var qualifiedId = qualifier + guid;
+
+            Func<string, Guid> reparse = x => new QualifiedId<Guid>(x).Id;
+
+            var result = reparse(qualifiedId);
+
+            Assert.Equal(guid, result);
         }
     }
 }

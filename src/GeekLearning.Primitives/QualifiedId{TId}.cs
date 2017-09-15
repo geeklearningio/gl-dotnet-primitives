@@ -1,6 +1,7 @@
 ﻿namespace GeekLearning.Primitives
 {
     using System;
+    using System.Linq;
 
     public class QualifiedId<TId> : IQualifiedId<TId>
     {
@@ -32,10 +33,32 @@
 
         protected virtual TId ParseIdFromString(string str)
         {
-            if (typeof(TId) == typeof(Guid))
+            var type = typeof(TId);
+
+            if (type == typeof(Guid))
             {
                 return (TId)Convert.ChangeType(Guid.Parse(str), typeof(TId));
             }
+            else if (type.Namespace == "System" && type.IsConstructedGenericType)
+            {
+                var genericTypeDefinition = type.GetGenericTypeDefinition();
+                if (genericTypeDefinition.Name.StartsWith("Tuple`") || genericTypeDefinition.Name.StartsWith("ValueTuple`"))
+                {
+                    var values = str
+                        .Substring(1, str.Length - 2)
+                        .Split(new string[] { ", " }, StringSplitOptions.None)
+                        .Zip(type.GenericTypeArguments, (valueAsString, valueType) =>
+                        {
+                            if (valueType == typeof(Guid))
+                            {
+                                return (object)Guid.Parse(valueAsString);
+                            }
+                            return Convert.ChangeType(valueAsString, valueType);
+                        }).ToArray();
+                    return (TId)Activator.CreateInstance(type, values);
+                }
+            }
+
             return (TId)Convert.ChangeType(str, typeof(TId));
         }
 
