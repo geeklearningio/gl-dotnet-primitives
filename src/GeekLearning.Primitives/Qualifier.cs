@@ -30,6 +30,11 @@ namespace GeekLearning.Primitives
             return new Qualifier(name);
         }
 
+        public static implicit operator string(Qualifier qualifier)
+        {
+            return qualifier.name;
+        }
+
         public QualifiedId<T> Join<T>(T value)
         {
             return new QualifiedId<T>(this.name, value);
