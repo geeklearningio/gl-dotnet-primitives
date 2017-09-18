@@ -19,7 +19,7 @@ namespace GeekLearning.Primitives.Test
 
             Qualifier qualifier = "a_qualifier";
 
-            var qualifiedId = qualifier.Join(tuple);
+            var qualifiedId = qualifier.MakeId(tuple);
 
 
             var fullId = qualifiedId.Full;
@@ -40,7 +40,7 @@ namespace GeekLearning.Primitives.Test
 
             Qualifier qualifier = "a_qualifier";
 
-            var qualifiedId = qualifier.Join(tuple);
+            var qualifiedId = qualifier.MakeId(tuple);
 
             var fullId = qualifiedId.Full;
 
@@ -62,7 +62,7 @@ namespace GeekLearning.Primitives.Test
 
             Qualifier qualifier = "a_qualifier";
 
-            var qualifiedId = qualifier.Join(tuple);
+            var qualifiedId = qualifier.MakeId(tuple);
 
             Assert.Equal(expected, qualifiedId.Full);
         }
@@ -78,7 +78,7 @@ namespace GeekLearning.Primitives.Test
 
             Qualifier qualifier = "a_qualifier";
 
-            var qualifiedId = qualifier.Join(tuple);
+            var qualifiedId = qualifier.MakeId(tuple);
 
             Assert.Equal(expected, qualifiedId.Full);
         }

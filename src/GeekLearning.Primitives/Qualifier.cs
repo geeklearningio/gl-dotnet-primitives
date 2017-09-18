@@ -48,7 +48,7 @@ namespace GeekLearning.Primitives
         public static bool operator ==(Qualifier qualifier, string name) => qualifier?.name == name;
         public static bool operator !=(Qualifier qualifier, string name) => qualifier?.name != name;
 
-        public QualifiedId<T> Join<T>(T value) => new QualifiedId<T>(this.name, value);
+        public QualifiedId<T> MakeId<T>(T value) => new QualifiedId<T>(this.name, value);
 
         public Qualifier Merge(Qualifier other) => new Qualifier(this.name + other.name);
 
@@ -59,11 +59,11 @@ namespace GeekLearning.Primitives
 
         public static QualifiedId<Guid> operator +(Qualifier qualifier, Guid guid) => new QualifiedGuid(qualifier.name, guid);
 
-        public static QualifiedId<int> operator +(Qualifier qualifier, int value) => qualifier.Join(value);
+        public static QualifiedId<int> operator +(Qualifier qualifier, int value) => qualifier.MakeId(value);
 
-        public static QualifiedId<long> operator +(Qualifier qualifier, long value) => qualifier.Join(value);
+        public static QualifiedId<long> operator +(Qualifier qualifier, long value) => qualifier.MakeId(value);
 
-        public static QualifiedId<string> operator +(Qualifier qualifier, string value) => qualifier.Join(value);
+        public static QualifiedId<string> operator +(Qualifier qualifier, string value) => qualifier.MakeId(value);
 
         public static Qualifier operator &(Qualifier qualifier, Qualifier other) => qualifier.Merge(other);
     }
