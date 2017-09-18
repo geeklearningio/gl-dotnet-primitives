@@ -1,6 +1,7 @@
 ﻿namespace GeekLearning.Primitives
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class QualifiedId<TId> : IQualifiedId<TId>
@@ -8,16 +9,17 @@
         private string idAsString;
         private string full;
 
-        public string Qualifier { get; private set; }
+        public Qualifier Qualifier { get; private set; }
         public TId Id { get; private set; }
         public string Full => full ?? (full = this.ToFullString());
         public string IdAsString => idAsString ?? (idAsString = this.ToUnqualifiedString());
 
-        public QualifiedId(string qualifier, TId id)
+        public QualifiedId(Qualifier qualifier, TId id)
         {
             this.Id = id;
             this.Qualifier = qualifier;
         }
+
 
         public QualifiedId(string qualifiedId)
         {
@@ -77,19 +79,49 @@
             return this.Full;
         }
 
-        public static implicit operator TId(QualifiedId<TId> id)
+        public override bool Equals(object obj)
         {
-            return id.Id;
+            var typedId = obj as IQualifiedId<TId>;
+            if(typedId != null)
+            {
+                return this.Equals(typedId);
+            }
+
+            var genericId = obj as IQualifiedId;
+            if (genericId != null)
+            {
+                return this.Equals(typedId);
+            }
+
+            return false;
         }
 
-        public static implicit operator string(QualifiedId<TId> id)
+        public bool Equals(IQualifiedId<TId> other)
         {
-            return id.Full;
+            return this.Qualifier == other.Qualifier && this.Id.Equals(other.Id);
         }
 
-        public static implicit operator QualifiedId<TId>(string qualifiedId)
+        public bool Equals(IQualifiedId other)
         {
-            return new QualifiedId<TId>(qualifiedId);
+            return this.Qualifier == other.Qualifier && this.IdAsString.Equals(other.IdAsString);
         }
+
+        public override int GetHashCode()
+        {
+            return -1528073796 + EqualityComparer<string>.Default.GetHashCode(Full);
+        }
+
+        public static bool operator ==(QualifiedId<TId> a, QualifiedId<TId> other) => a.Equals(other);
+        public static bool operator !=(QualifiedId<TId> a, QualifiedId<TId> other) => !a.Equals(other);
+
+        public static bool operator ==(QualifiedId<TId> a, IQualifiedId other) => a.Equals(other);
+        public static bool operator !=(QualifiedId<TId> a, IQualifiedId other) => !a.Equals(other);
+
+
+        public static implicit operator TId(QualifiedId<TId> id) => id.Id;
+
+        public static implicit operator string(QualifiedId<TId> id) => id.Full;
+
+        public static implicit operator QualifiedId<TId>(string qualifiedId) => new QualifiedId<TId>(qualifiedId);
     }
 }

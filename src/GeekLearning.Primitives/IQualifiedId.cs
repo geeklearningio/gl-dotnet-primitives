@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace GeekLearning.Primitives
 {
-    public interface IQualifiedId
+    public interface IQualifiedId: IEquatable<IQualifiedId>
     {
-        string Qualifier { get; }
+        Qualifier Qualifier { get; }
         string Full { get; }
         string IdAsString { get; }
     }

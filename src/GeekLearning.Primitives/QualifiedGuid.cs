@@ -9,7 +9,7 @@ namespace GeekLearning.Primitives
     {
         private string format = null;
 
-        public QualifiedGuid(string qualifier, Guid id) : base(qualifier, id)
+        public QualifiedGuid(Qualifier qualifier, Guid id) : base(qualifier, id)
         {
 
         }
@@ -19,7 +19,7 @@ namespace GeekLearning.Primitives
 
         }
 
-        public QualifiedGuid(string qualifier, Guid id, string format) : base(qualifier, id)
+        public QualifiedGuid(Qualifier qualifier, Guid id, string format) : base(qualifier, id)
         {
             this.format = format;
         }

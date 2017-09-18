@@ -6,58 +6,65 @@ using System.Threading.Tasks;
 
 namespace GeekLearning.Primitives
 {
-    public class Qualifier : IEquatable<Qualifier>
+    public class Qualifier : IEquatable<Qualifier>, IEquatable<string>
     {
         private readonly string name;
 
-        public Qualifier(string name)
+        public Qualifier(string name) => this.name = name;
+
+        public bool Equals(Qualifier other) => this.name.Equals(other?.name);
+
+        public override bool Equals(object obj)
         {
-            this.name = name;
+            var other = obj as Qualifier;
+            if (other != null)
+            {
+                return other.name.Equals(this.name);
+            }
+
+            var str = obj as string;
+            if (str != null)
+            {
+                return this == str;
+            }
+
+            return false;
         }
 
-        public bool Equals(Qualifier other)
+        public override int GetHashCode()
         {
-            return other.name.Equals(this.name);
+            return name.GetHashCode();
         }
 
-        public override string ToString()
+        public override string ToString() => name;
+
+        public static implicit operator Qualifier(string name) => new Qualifier(name);
+
+        public static explicit operator string(Qualifier qualifier) => qualifier.name;
+
+        public static bool operator ==(Qualifier a, Qualifier b) => a?.name == b?.name;
+        public static bool operator !=(Qualifier a, Qualifier b) => a?.name != b?.name;
+
+        public static bool operator ==(Qualifier qualifier, string name) => qualifier?.name == name;
+        public static bool operator !=(Qualifier qualifier, string name) => qualifier?.name != name;
+
+        public QualifiedId<T> Join<T>(T value) => new QualifiedId<T>(this.name, value);
+
+        public Qualifier Merge(Qualifier other) => new Qualifier(this.name + other.name);
+
+        public bool Equals(string other)
         {
-            return name;
+            return this.name == other;
         }
 
-        public static implicit operator Qualifier(string name)
-        {
-            return new Qualifier(name);
-        }
+        public static QualifiedId<Guid> operator +(Qualifier qualifier, Guid guid) => new QualifiedGuid(qualifier.name, guid);
 
-        public static implicit operator string(Qualifier qualifier)
-        {
-            return qualifier.name;
-        }
+        public static QualifiedId<int> operator +(Qualifier qualifier, int value) => qualifier.Join(value);
 
-        public QualifiedId<T> Join<T>(T value)
-        {
-            return new QualifiedId<T>(this.name, value);
-        }
+        public static QualifiedId<long> operator +(Qualifier qualifier, long value) => qualifier.Join(value);
 
-        public static QualifiedId<Guid> operator +(Qualifier qualifier, Guid guid)
-        {
-            return new QualifiedGuid(qualifier.name, guid);
-        }
+        public static QualifiedId<string> operator +(Qualifier qualifier, string value) => qualifier.Join(value);
 
-        public static QualifiedId<int> operator +(Qualifier qualifier, int value)
-        {
-            return qualifier.Join(value);
-        }
-
-        public static QualifiedId<long> operator +(Qualifier qualifier, long value)
-        {
-            return qualifier.Join(value);
-        }
-
-        public static QualifiedId<string> operator +(Qualifier qualifier, string value)
-        {
-            return qualifier.Join(value);
-        }
+        public static Qualifier operator &(Qualifier qualifier, Qualifier other) => qualifier.Merge(other);
     }
 }
