@@ -21,17 +21,28 @@
         }
 
 
-        public QualifiedId(string qualifiedId)
+        public QualifiedId(string qualifiedId, bool isBase64Encoded)
         {
-            int indexOfFirstColon = qualifiedId.IndexOf(':');
+            if (isBase64Encoded)
+            {
+                this.full = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(qualifiedId));
+            }
+            else
+            {
+                this.full = qualifiedId;
+            }
+
+            int indexOfFirstColon = this.full.IndexOf(':');
             if (indexOfFirstColon < 0)
             {
                 throw new ArgumentException("This is not a valid qualified id. Expected format is 'qualifier:id'.", nameof(qualifiedId));
             }
 
-            this.Qualifier = qualifiedId.Substring(0, indexOfFirstColon);
-            this.Id = this.ParseIdFromString(qualifiedId.Substring(indexOfFirstColon + 1));
+            this.Qualifier = this.full.Substring(0, indexOfFirstColon);
+            this.Id = this.ParseIdFromString(this.full.Substring(indexOfFirstColon + 1));
         }
+
+        public QualifiedId(string qualifiedId) : this(qualifiedId, false) { }
 
         protected virtual TId ParseIdFromString(string str)
         {
@@ -74,6 +85,11 @@
             return $"{this.Qualifier}:{this.ToUnqualifiedString()}";
         }
 
+        protected virtual string ToBase64String()
+        {
+            return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(this.Full));
+        }
+
         public override string ToString()
         {
             return this.Full;
@@ -82,7 +98,7 @@
         public override bool Equals(object obj)
         {
             var typedId = obj as IQualifiedId<TId>;
-            if(typedId != null)
+            if (typedId != null)
             {
                 return this.Equals(typedId);
             }
