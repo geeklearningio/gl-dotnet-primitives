@@ -86,7 +86,7 @@
             return $"{this.Qualifier}:{this.ToUnqualifiedString()}";
         }
 
-        protected virtual string ToBase64String()
+        public string ToBase64String()
         {
             return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(this.Full));
         }
