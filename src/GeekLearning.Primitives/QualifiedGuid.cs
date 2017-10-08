@@ -19,6 +19,11 @@ namespace GeekLearning.Primitives
 
         }
 
+        public QualifiedGuid(string qualifiedId, bool isBase64Encoded) : base(qualifiedId, isBase64Encoded)
+        {
+
+        }
+
         public QualifiedGuid(Qualifier qualifier, Guid id, string format) : base(qualifier, id)
         {
             this.format = format;
