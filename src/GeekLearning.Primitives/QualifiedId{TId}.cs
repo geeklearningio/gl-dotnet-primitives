@@ -25,7 +25,8 @@
         {
             if (isBase64Encoded)
             {
-                this.full = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(qualifiedId));
+                var buffer = Convert.FromBase64String(qualifiedId);
+                this.full = System.Text.Encoding.UTF8.GetString(buffer, 0, buffer.Length);
             }
             else
             {
