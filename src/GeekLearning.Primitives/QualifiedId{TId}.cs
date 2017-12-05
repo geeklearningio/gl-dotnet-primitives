@@ -82,7 +82,7 @@
         public override bool Equals(object obj)
         {
             var typedId = obj as IQualifiedId<TId>;
-            if(typedId != null)
+            if (typedId != null)
             {
                 return this.Equals(typedId);
             }
@@ -123,5 +123,6 @@
         public static implicit operator string(QualifiedId<TId> id) => id.Full;
 
         public static implicit operator QualifiedId<TId>(string qualifiedId) => new QualifiedId<TId>(qualifiedId);
+
     }
 }

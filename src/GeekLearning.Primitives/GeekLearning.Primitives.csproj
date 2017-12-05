@@ -4,10 +4,9 @@
     <Description>Data primitives and extensions for .NET Core.</Description>
     <VersionPrefix>0.0.1</VersionPrefix>
     <Authors>Geek Learning;Cyprien Autexier;Adrien Siffermann</Authors>
-    <TargetFrameworks>net452;netstandard1.1</TargetFrameworks>
+    <TargetFrameworks>net452;netstandard1.3;netstandard2.0</TargetFrameworks>
     <AssemblyName>GeekLearning.Primitives</AssemblyName>
     <PackageId>GeekLearning.Primitives</PackageId>
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
